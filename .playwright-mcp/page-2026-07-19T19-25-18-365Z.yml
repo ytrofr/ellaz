@@ -1,0 +1,26 @@
+- generic [ref=f3e3]:
+  - banner [ref=f3e4]:
+    - generic [ref=f3e5]: 🎮
+    - generic [ref=f3e6]:
+      - heading "אלז" [level=1] [ref=f3e7]
+      - generic [ref=f3e8]: משחקים לכל המשפחה
+    - button "שפה" [ref=f3e9] [cursor=pointer]: EN
+  - generic [ref=f3e10]:
+    - heading "לילדים" [level=2] [ref=f3e11]
+    - generic [ref=f3e12]:
+      - button "🧠 זיכרון" [ref=f3e13] [cursor=pointer]:
+        - generic [ref=f3e14]: 🧠
+        - generic [ref=f3e15]: זיכרון
+      - button "🎨 צביעה" [ref=f3e16] [cursor=pointer]:
+        - generic [ref=f3e17]: 🎨
+        - generic [ref=f3e18]: צביעה
+  - generic [ref=f3e19]:
+    - heading "קלאסי" [level=2] [ref=f3e20]
+    - generic [ref=f3e21]:
+      - button "🔢 2048" [ref=f3e22] [cursor=pointer]:
+        - generic [ref=f3e23]: 🔢
+        - generic [ref=f3e24]: "2048"
+      - button "🐍 נחש" [ref=f3e25] [cursor=pointer]:
+        - generic [ref=f3e26]: 🐍
+        - generic [ref=f3e27]: נחש
+  - paragraph [ref=f3e28]: 📲 הוסיפו למסך הבית למשחק גם בלי אינטרנט

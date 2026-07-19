@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a29bfe"/>
+      <stop offset="1" stop-color="#6c5ce7"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#g)"/>
+  <circle cx="24" cy="34" r="4" fill="#fff"/>
+  <circle cx="40" cy="28" r="4" fill="#fff"/>
+  <circle cx="40" cy="40" r="4" fill="#fff"/>
+  <circle cx="32" cy="22" r="3.2" fill="#fdcb6e"/>
+  <text x="32" y="56" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ELLAZ</text>
+</svg>

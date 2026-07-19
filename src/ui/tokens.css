@@ -1,0 +1,40 @@
+/* Ellaz design tokens — one source of truth for color, space, type, radius.
+   Kid-friendly: bright accents, big touch targets (min 48px ~= adult; games for
+   kids bump to 64px+), rounded shapes, Hebrew-first font stack. */
+:root {
+  --bg: #0f1226;
+  --bg-soft: #171a34;
+  --surface: #1e2240;
+  --surface-2: #262b52;
+  --text: #f5f6ff;
+  --text-dim: #b3b8e0;
+  --brand: #6c5ce7;
+  --brand-2: #a29bfe;
+  --teal: #00cec9;
+  --yellow: #fdcb6e;
+  --red: #ff7675;
+  --green: #55efc4;
+  --pink: #fd79a8;
+  --orange: #ffa94d;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+
+  --radius-1: 8px;
+  --radius-2: 14px;
+  --radius-3: 22px;
+  --radius-pill: 999px;
+
+  --tap: 48px; /* minimum interactive target */
+  --tap-kids: 64px; /* age-5 target (~2cm+) */
+
+  --font: "Heebo", "Assistant", "Rubik", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow-1: 0 4px 16px rgba(0, 0, 0, 0.28);
+  --shadow-2: 0 10px 30px rgba(0, 0, 0, 0.38);
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+}

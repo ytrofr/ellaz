@@ -1,0 +1,27 @@
+- generic [ref=f4e29]:
+  - generic [ref=f4e30]:
+    - button "back" [ref=f4e31] [cursor=pointer]: →
+    - button "mute" [pressed] [ref=f4e32] [cursor=pointer]: 🔊
+  - generic [ref=f4e35]:
+    - generic [ref=f4e36]:
+      - generic [ref=f4e37]:
+        - generic [ref=f4e38]: זוגות
+        - generic [ref=f4e39]: 0/6
+      - generic [ref=f4e40]:
+        - generic [ref=f4e41]: מהלכים
+        - generic [ref=f4e42]: "0"
+      - button "🔄" [ref=f4e43] [cursor=pointer]
+      - button "next set" [ref=f4e44] [cursor=pointer]: 🎨
+    - generic [ref=f4e45]:
+      - button "card" [ref=f4e46] [cursor=pointer]: ❓
+      - button "card" [ref=f4e47] [cursor=pointer]: ❓
+      - button "card" [ref=f4e48] [cursor=pointer]: ❓
+      - button "card" [ref=f4e49] [cursor=pointer]: ❓
+      - button "card" [ref=f4e50] [cursor=pointer]: ❓
+      - button "card" [ref=f4e51] [cursor=pointer]: ❓
+      - button "card" [ref=f4e52] [cursor=pointer]: ❓
+      - button "card" [ref=f4e53] [cursor=pointer]: ❓
+      - button "card" [ref=f4e54] [cursor=pointer]: ❓
+      - button "card" [ref=f4e55] [cursor=pointer]: ❓
+      - button "card" [ref=f4e56] [cursor=pointer]: ❓
+      - button "card" [ref=f4e57] [cursor=pointer]: ❓

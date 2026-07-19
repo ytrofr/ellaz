@@ -1,0 +1,65 @@
+@import "./tokens.css";
+
+/* Load Hebrew-first web fonts (woff2) from Google Fonts CSS. If offline the
+   system fallback stack in --font applies. */
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&family=Fredoka:wght@500;600&display=swap");
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 50% -10%, #202650 0%, var(--bg) 55%);
+  overflow: hidden; /* the app manages its own scroll regions */
+  overscroll-behavior: none;
+}
+
+#root {
+  /* dynamic viewport height so mobile browser chrome doesn't clip the layout,
+     plus safe-area insets for notched devices */
+  height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* The active play surface disables browser gestures (scroll/pinch) during play. */
+.ellaz-play-surface {
+  touch-action: none;
+  user-select: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Fredoka", var(--font);
+  margin: 0;
+}
+
+.ellaz-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

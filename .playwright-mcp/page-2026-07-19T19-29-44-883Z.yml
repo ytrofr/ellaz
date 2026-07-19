@@ -1,0 +1,26 @@
+- generic [ref=f6e3]:
+  - banner [ref=f6e4]:
+    - generic [ref=f6e5]: 🎮
+    - generic [ref=f6e6]:
+      - heading "Ellaz" [level=1] [ref=f6e29]
+      - generic [ref=f6e8]: Games for everyone
+    - button "Language" [active] [ref=f6e30] [cursor=pointer]: עב
+  - generic [ref=f6e10]:
+    - heading "For kids" [level=2] [ref=f6e31]
+    - generic [ref=f6e12]:
+      - button "🧠 Memory" [ref=f6e32] [cursor=pointer]:
+        - generic [ref=f6e14]: 🧠
+        - generic [ref=f6e15]: Memory
+      - button "🎨 Coloring" [ref=f6e33] [cursor=pointer]:
+        - generic [ref=f6e17]: 🎨
+        - generic [ref=f6e18]: Coloring
+  - generic [ref=f6e19]:
+    - heading "Classics" [level=2] [ref=f6e34]
+    - generic [ref=f6e21]:
+      - button "🔢 2048" [ref=f6e22] [cursor=pointer]:
+        - generic [ref=f6e23]: 🔢
+        - generic [ref=f6e24]: "2048"
+      - button "🐍 Snake" [ref=f6e35] [cursor=pointer]:
+        - generic [ref=f6e26]: 🐍
+        - generic [ref=f6e27]: Snake
+  - paragraph [ref=f6e28]: 📲 Add to home screen to play offline

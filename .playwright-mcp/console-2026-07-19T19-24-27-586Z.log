@@ -1,0 +1,22 @@
+[    6639ms] [ERROR] NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+    at Da (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:25956)
+    at Xe (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:25667)
+    at Da (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:26404)
+    at Pe (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:27253)
+    at Oa (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:28700)
+    at ld (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:40547)
+    at yt (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:39963)
+    at Oo (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:36644)
+    at pt (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:30:3258)
+    at http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:34047 @ http://localhost:5180/assets/vendor-react-ppAWL3zK.js:31
+[    6645ms] NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+    at Da (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:25956)
+    at Xe (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:25667)
+    at Da (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:26404)
+    at Pe (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:27253)
+    at Oa (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:28700)
+    at ld (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:40547)
+    at yt (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:39963)
+    at Oo (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:36644)
+    at pt (http://localhost:5180/assets/vendor-react-ppAWL3zK.js:30:3258)
+    at http://localhost:5180/assets/vendor-react-ppAWL3zK.js:32:34047
