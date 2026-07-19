@@ -167,6 +167,7 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
       <div
         ref={boardRef}
         className="ellaz-play-surface"
+        dir="ltr"
         style={{
           position: "relative",
           width: "min(88vw, 62vh, 420px)",
