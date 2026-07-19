@@ -4,16 +4,32 @@ import { Button, Stat } from "@ui/components";
 import { burst, haptic, celebrate } from "@juice/index";
 import { newGame, flip, resolveMismatch, isWon, type MemoryState } from "./logic";
 
-// Big, colorful animal faces — icon-first, no reading required (age 5).
+// Big, colorful, icon-first faces — no reading required (age 5). Each themed set
+// carries 12 distinct emojis so the hardest level (10 pairs) always has enough.
 const FACE_SETS = [
-  ["🐶", "🐱", "🦊", "🐰", "🐻", "🐼"],
-  ["🍎", "🍌", "🍓", "🍇", "🍊", "🍉"],
-  ["🚗", "🚀", "⛵", "🚁", "🚜", "🚲"],
+  ["🐶", "🐱", "🦊", "🐰", "🐻", "🐼", "🐨", "🦁", "🐯", "🐮", "🐷", "🐸"], // animals
+  ["🍎", "🍌", "🍓", "🍇", "🍊", "🍉", "🍒", "🍑", "🥝", "🍍", "🥭", "🍐"], // fruit
+  ["🚗", "🚀", "⛵", "🚁", "🚜", "🚲", "🚂", "🚌", "🚑", "🚒", "✈️", "🚓"], // vehicles
+  ["😀", "😍", "😎", "🤩", "😴", "🤖", "👻", "🤠", "🥳", "😜", "🤪", "😇"], // smileys
+  ["🌵", "🌻", "🌈", "⭐", "🌙", "⚡", "❄️", "🔥", "🍄", "🌸", "🌴", "🌊"], // nature
 ];
+
+// Difficulty = how many pairs. Grid stays 4 cols for easy/medium; hard (20 cards)
+// goes to 5 cols so it keeps 4 rows and fits the height cap.
+const LEVELS = [
+  { id: "easy", pairs: 6, cols: 4, he: "קל", en: "Easy" },
+  { id: "medium", pairs: 8, cols: 4, he: "בינוני", en: "Med" },
+  { id: "hard", pairs: 10, cols: 5, he: "קשה", en: "Hard" },
+] as const;
+
+function deckFor(setIdx: number, levelIdx: number) {
+  return newGame(FACE_SETS[setIdx].slice(0, LEVELS[levelIdx].pairs));
+}
 
 export function Memory({ ctx }: { ctx: GameContext }) {
   const [setIdx, setSetIdx] = useState(0);
-  const [state, setState] = useState<MemoryState>(() => newGame(FACE_SETS[0]));
+  const [levelIdx, setLevelIdx] = useState(0);
+  const [state, setState] = useState<MemoryState>(() => deckFor(0, 0));
   const [won, setWon] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
   const started = useRef(false);
@@ -22,19 +38,21 @@ export function Memory({ ctx }: { ctx: GameContext }) {
     if (!started.current) {
       started.current = true;
       ctx.lifecycle.gameplayStart();
-      ctx.analytics.levelStart("set-1");
+      ctx.analytics.levelStart(`set-1-${LEVELS[0].id}`);
     }
   }, [ctx]);
 
   const reset = useCallback(
-    (nextSet?: number) => {
-      const si = nextSet ?? setIdx;
+    (opts?: { set?: number; level?: number }) => {
+      const si = opts?.set ?? setIdx;
+      const li = opts?.level ?? levelIdx;
       setSetIdx(si);
-      setState(newGame(FACE_SETS[si]));
+      setLevelIdx(li);
+      setState(deckFor(si, li));
       setWon(false);
-      ctx.analytics.levelStart(`set-${si + 1}`);
+      ctx.analytics.levelStart(`set-${si + 1}-${LEVELS[li].id}`);
     },
-    [ctx, setIdx],
+    [ctx, setIdx, levelIdx],
   );
 
   const onCard = useCallback(
@@ -59,28 +77,42 @@ export function Memory({ ctx }: { ctx: GameContext }) {
           ctx.audio.play("win");
           haptic.win();
           celebrate();
-          ctx.analytics.levelComplete(`set-${setIdx + 1}`, ns.moves);
+          ctx.analytics.levelComplete(`set-${setIdx + 1}-${LEVELS[levelIdx].id}`, ns.moves);
         }
       } else if (outcome.kind === "mismatch") {
         const { a, b } = outcome;
         setTimeout(() => setState((s) => resolveMismatch(s, a, b)), 850);
       }
     },
-    [ctx, state, setIdx],
+    [ctx, state, setIdx, levelIdx],
   );
 
-  const cols = 4;
+  const cols = LEVELS[levelIdx].cols;
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: 16 }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, padding: 16 }}>
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
         <Stat label={ctx.t("pairs")} value={`${state.matchedPairs}/${state.totalPairs}`} />
         <Stat label={ctx.t("moves")} value={state.moves} />
         <Button variant="ghost" kids onClick={() => reset()}>
           🔄
         </Button>
-        <Button variant="ghost" kids ariaLabel="next set" onClick={() => reset((setIdx + 1) % FACE_SETS.length)}>
+        <Button variant="ghost" kids ariaLabel="next set" onClick={() => reset({ set: (setIdx + 1) % FACE_SETS.length })}>
           🎨
         </Button>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        {LEVELS.map((lv, i) => (
+          <Button
+            key={lv.id}
+            variant={i === levelIdx ? "primary" : "ghost"}
+            kids
+            ariaLabel={ctx.locale === "he" ? lv.he : lv.en}
+            onClick={() => reset({ level: i })}
+          >
+            {ctx.locale === "he" ? lv.he : lv.en}
+          </Button>
+        ))}
       </div>
 
       <div
@@ -89,7 +121,7 @@ export function Memory({ ctx }: { ctx: GameContext }) {
           display: "grid",
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gap: 12,
-          // cap by height too so the 3-row grid fits landscape without scrolling
+          // cap by height too so the grid fits landscape without scrolling
           width: "min(92vw, 72vh, 460px)",
         }}
       >
@@ -106,7 +138,7 @@ export function Memory({ ctx }: { ctx: GameContext }) {
                 minHeight: 64,
                 border: "none",
                 borderRadius: 16,
-                fontSize: "clamp(30px, 9vw, 52px)",
+                fontSize: "clamp(28px, 8vw, 52px)",
                 display: "grid",
                 placeItems: "center",
                 background: faceUp
@@ -131,7 +163,7 @@ export function Memory({ ctx }: { ctx: GameContext }) {
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 44 }}>🎉</div>
           <h2>{ctx.t("youWon")}</h2>
-          <Button kids onClick={() => reset((setIdx + 1) % FACE_SETS.length)}>
+          <Button kids onClick={() => reset({ set: (setIdx + 1) % FACE_SETS.length })}>
             ▶
           </Button>
         </div>

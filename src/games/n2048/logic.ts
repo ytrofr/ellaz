@@ -1,9 +1,24 @@
 // 2048 — pure game logic. No DOM, no framework. Deterministic given a RNG.
 // Reference mechanics: gabrielecirulli/2048 (MIT). Original engine, our own code.
+//
+// Board size is a parameter (default 4). Every function reads the grid's own
+// dimensions (grid.length) so an NxN board of any size works — see LEVELS.
 
 export type Grid = number[][]; // 0 = empty
 export type Direction = "up" | "down" | "left" | "right";
-export const SIZE = 4;
+export const SIZE = 4; // default/classic board size
+
+// Difficulty levels: board size + win target.
+export interface Level {
+  size: number;
+  target: number;
+}
+export type LevelKey = "kids" | "classic" | "hard";
+export const LEVELS: Record<LevelKey, Level> = {
+  kids: { size: 5, target: 256 }, // roomier, easier
+  classic: { size: 4, target: 2048 }, // standard
+  hard: { size: 3, target: 512 }, // tight
+};
 
 export interface MoveResult {
   grid: Grid;
@@ -12,8 +27,8 @@ export interface MoveResult {
   merged: Array<[number, number]>; // cells (row,col) that received a merge (for juice)
 }
 
-export function emptyGrid(): Grid {
-  return Array.from({ length: SIZE }, () => Array<number>(SIZE).fill(0));
+export function emptyGrid(size: number = SIZE): Grid {
+  return Array.from({ length: size }, () => Array<number>(size).fill(0));
 }
 
 export function cloneGrid(g: Grid): Grid {
@@ -22,8 +37,8 @@ export function cloneGrid(g: Grid): Grid {
 
 export function emptyCells(g: Grid): Array<[number, number]> {
   const out: Array<[number, number]> = [];
-  for (let r = 0; r < SIZE; r++)
-    for (let c = 0; c < SIZE; c++) if (g[r][c] === 0) out.push([r, c]);
+  for (let r = 0; r < g.length; r++)
+    for (let c = 0; c < g.length; c++) if (g[r][c] === 0) out.push([r, c]);
   return out;
 }
 
@@ -38,8 +53,9 @@ export function spawn(g: Grid, rng: () => number = Math.random): Grid {
 }
 
 // Slide + merge one row to the left. Returns the new row, points gained, and
-// the indices that received a merge.
+// the indices that received a merge. Pads back to the row's own length.
 function collapseRow(row: number[]): { row: number[]; gained: number; mergedAt: number[] } {
+  const size = row.length;
   const nums = row.filter((n) => n !== 0);
   const out: number[] = [];
   const mergedAt: number[] = [];
@@ -55,7 +71,7 @@ function collapseRow(row: number[]): { row: number[]; gained: number; mergedAt: 
       out.push(nums[i]);
     }
   }
-  while (out.length < SIZE) out.push(0);
+  while (out.length < size) out.push(0);
   return { row: out, gained, mergedAt };
 }
 
@@ -63,10 +79,11 @@ function rowsEqual(a: number[], b: number[]): boolean {
   return a.every((v, i) => v === b[i]);
 }
 
-// Transform helpers so every direction reuses collapseRow (left).
+// Transform helpers so every direction reuses collapseRow (left). NxN aware.
 function transpose(g: Grid): Grid {
-  const out = emptyGrid();
-  for (let r = 0; r < SIZE; r++) for (let c = 0; c < SIZE; c++) out[c][r] = g[r][c];
+  const n = g.length;
+  const out = emptyGrid(n);
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) out[c][r] = g[r][c];
   return out;
 }
 function reverseRows(g: Grid): Grid {
@@ -74,6 +91,7 @@ function reverseRows(g: Grid): Grid {
 }
 
 export function move(g: Grid, dir: Direction): MoveResult {
+  const n = g.length;
   // Map every direction onto "left" via transpose/reverse, collapse, map back.
   let work = cloneGrid(g);
   if (dir === "up") work = transpose(work);
@@ -93,8 +111,8 @@ export function move(g: Grid, dir: Direction): MoveResult {
   let result = collapsed;
   const mapCoord = (r: number, c: number): [number, number] => {
     if (dir === "up") return [c, r];
-    if (dir === "down") return [SIZE - 1 - c, r];
-    if (dir === "right") return [r, SIZE - 1 - c];
+    if (dir === "down") return [n - 1 - c, r];
+    if (dir === "right") return [r, n - 1 - c];
     return [r, c];
   };
   const merged = mergedLeftSpace.map(([r, c]) => mapCoord(r, c));
@@ -108,11 +126,12 @@ export function move(g: Grid, dir: Direction): MoveResult {
 }
 
 export function hasMoves(g: Grid): boolean {
+  const n = g.length;
   if (emptyCells(g).length > 0) return true;
-  for (let r = 0; r < SIZE; r++)
-    for (let c = 0; c < SIZE; c++) {
-      if (c + 1 < SIZE && g[r][c] === g[r][c + 1]) return true;
-      if (r + 1 < SIZE && g[r][c] === g[r + 1][c]) return true;
+  for (let r = 0; r < n; r++)
+    for (let c = 0; c < n; c++) {
+      if (c + 1 < n && g[r][c] === g[r][c + 1]) return true;
+      if (r + 1 < n && g[r][c] === g[r + 1][c]) return true;
     }
   return false;
 }
@@ -121,6 +140,6 @@ export function hasWon(g: Grid, target = 2048): boolean {
   return g.some((row) => row.some((v) => v >= target));
 }
 
-export function newGame(rng: () => number = Math.random): Grid {
-  return spawn(spawn(emptyGrid(), rng), rng);
+export function newGame(size: number = SIZE, rng: () => number = Math.random): Grid {
+  return spawn(spawn(emptyGrid(size), rng), rng);
 }

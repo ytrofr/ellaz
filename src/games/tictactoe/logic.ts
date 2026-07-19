@@ -83,3 +83,27 @@ export function bestMove(b: Board, ai: Player, rng: () => number = Math.random):
   }
   return bestMoves[Math.floor(rng() * bestMoves.length)];
 }
+
+export type Difficulty = "easy" | "medium" | "hard";
+
+// A random available cell — the "easy" AI.
+export function randomMove(b: Board, rng: () => number = Math.random): number {
+  const moves = available(b);
+  return moves[Math.floor(rng() * moves.length)];
+}
+
+// Difficulty-aware move selection. Keeps the minimax internals via bestMove():
+//  - easy:   always a random available cell
+//  - medium: minimax-best ~50% of the time, otherwise random (rng decides)
+//  - hard:   always minimax-best (unbeatable)
+export function chooseMove(
+  b: Board,
+  ai: Player,
+  level: Difficulty,
+  rng: () => number = Math.random,
+): number {
+  if (level === "easy") return randomMove(b, rng);
+  if (level === "hard") return bestMove(b, ai, rng);
+  // medium: flip a coin from rng to pick optimal vs random.
+  return rng() < 0.5 ? bestMove(b, ai, rng) : randomMove(b, rng);
+}

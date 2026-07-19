@@ -2,12 +2,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button, Stat } from "@ui/components";
 import { burst, shake, haptic, celebrate } from "@juice/index";
-import { emptyBoard, winner, isDraw, place, bestMove, type Board } from "./logic";
+import { emptyBoard, winner, isDraw, place, chooseMove, type Board, type Difficulty } from "./logic";
 
-// Human is X (goes first), AI is O (unbeatable minimax). Tap a cell to play.
+type Score = { wins: number; losses: number; draws: number };
+
+// Human is X (goes first), AI is O. Tap a cell to play. Difficulty tunes the AI:
+// easy = random, medium = ~50% optimal, hard = unbeatable minimax.
 export function TicTacToe({ ctx }: { ctx: GameContext }) {
   const [board, setBoard] = useState<Board>(() => emptyBoard());
   const [busy, setBusy] = useState(false);
+  const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [score, setScore] = useState<Score>({ wins: 0, losses: 0, draws: 0 });
   const boardRef = useRef<HTMLDivElement>(null);
   const started = useRef(false);
   const win = winner(board);
@@ -33,6 +38,7 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
       const w = winner(b);
       if (w) {
         if (w.player === "X") {
+          setScore((s) => ({ ...s, wins: s.wins + 1 }));
           ctx.audio.play("win");
           haptic.win();
           celebrate();
@@ -42,15 +48,29 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
           }
           ctx.analytics.levelComplete("vs-ai", 0);
         } else {
+          setScore((s) => ({ ...s, losses: s.losses + 1 }));
           ctx.audio.play("fail");
           if (boardRef.current) shake(boardRef.current);
           ctx.analytics.levelFail("vs-ai", "ai-won");
         }
       } else if (isDraw(b)) {
+        setScore((s) => ({ ...s, draws: s.draws + 1 }));
         ctx.audio.play("pop");
       }
     },
     [ctx],
+  );
+
+  // Switching difficulty starts a clean slate: fresh board + zeroed tally, so
+  // the score always reflects a single difficulty.
+  const changeDifficulty = useCallback(
+    (level: Difficulty) => {
+      if (level === difficulty) return;
+      setDifficulty(level);
+      setScore({ wins: 0, losses: 0, draws: 0 });
+      reset();
+    },
+    [difficulty, reset],
   );
 
   const onCell = useCallback(
@@ -68,7 +88,7 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
       // AI replies after a short beat so the move is legible.
       setBusy(true);
       setTimeout(() => {
-        const aiMove = bestMove(afterHuman, "O");
+        const aiMove = chooseMove(afterHuman, "O", difficulty);
         const afterAi = place(afterHuman, aiMove, "O");
         setBoard(afterAi);
         setBusy(false);
@@ -76,7 +96,7 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
         if (winner(afterAi) || isDraw(afterAi)) finish(afterAi);
       }, 380);
     },
-    [board, busy, done, ctx, finish],
+    [board, busy, done, ctx, finish, difficulty],
   );
 
   const status = win
@@ -98,6 +118,30 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
         <Button variant="ghost" onClick={reset}>
           {ctx.t("restart")}
         </Button>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        {(
+          [
+            ["easy", ctx.locale === "he" ? "קל" : "Easy"],
+            ["medium", ctx.locale === "he" ? "בינוני" : "Med"],
+            ["hard", ctx.locale === "he" ? "קשה" : "Hard"],
+          ] as [Difficulty, string][]
+        ).map(([level, label]) => (
+          <Button
+            key={level}
+            variant={difficulty === level ? "primary" : "ghost"}
+            onClick={() => changeDifficulty(level)}
+          >
+            {label}
+          </Button>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <Stat label={ctx.locale === "he" ? "ניצחונות" : "Wins"} value={score.wins} />
+        <Stat label={ctx.locale === "he" ? "הפסדים" : "Losses"} value={score.losses} />
+        <Stat label={ctx.locale === "he" ? "תיקו" : "Draws"} value={score.draws} />
       </div>
 
       <div

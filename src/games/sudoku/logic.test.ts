@@ -21,6 +21,28 @@ describe("sudoku logic", () => {
     expect(countSolutions(st.puzzle.map((row) => row.slice()), 2)).toBe(1);
   });
 
+  it("generates an expert puzzle with a unique solution and valid solution grid", () => {
+    const st = generate("expert", lcg(99));
+    // every given matches the solution
+    for (let r = 0; r < 9; r++)
+      for (let c = 0; c < 9; c++)
+        if (st.given[r][c]) expect(st.puzzle[r][c]).toBe(st.solution[r][c]);
+    // the puzzle itself is uniquely solvable
+    expect(countSolutions(st.puzzle.map((row) => row.slice()), 2)).toBe(1);
+    // the solution is a complete valid grid
+    for (let r = 0; r < 9; r++)
+      for (let c = 0; c < 9; c++) {
+        const v = st.solution[r][c];
+        expect(v).toBeGreaterThanOrEqual(1);
+        st.solution[r][c] = 0;
+        expect(isValid(st.solution, r, c, v)).toBe(true);
+        st.solution[r][c] = v;
+      }
+    // expert has no more givens than hard (fewer clues = harder)
+    const givenCount = st.given.reduce((n, row) => n + row.filter(Boolean).length, 0);
+    expect(givenCount).toBeLessThanOrEqual(30);
+  });
+
   it("the solution is a valid complete grid", () => {
     const st = generate("easy", lcg(7));
     for (let r = 0; r < 9; r++)

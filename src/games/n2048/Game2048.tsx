@@ -8,10 +8,18 @@ import {
   spawn,
   hasMoves,
   hasWon,
-  SIZE,
+  LEVELS,
   type Grid,
   type Direction,
+  type LevelKey,
 } from "./logic";
+
+const LEVEL_LABELS: Record<LevelKey, { he: string; en: string }> = {
+  kids: { he: "ילדים", en: "Kids" },
+  classic: { he: "קלאסי", en: "Classic" },
+  hard: { he: "קשה", en: "Hard" },
+};
+const LEVEL_ORDER: LevelKey[] = ["kids", "classic", "hard"];
 
 const TILE_COLORS: Record<number, string> = {
   2: "#eee4da",
@@ -32,7 +40,9 @@ function tileText(v: number): string {
 }
 
 export function Game2048({ ctx }: { ctx: GameContext }) {
-  const [grid, setGrid] = useState<Grid>(() => newGame());
+  const [level, setLevel] = useState<LevelKey>("classic");
+  const { size, target } = LEVELS[level];
+  const [grid, setGrid] = useState<Grid>(() => newGame(size));
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(() => ctx.storage.get("best", 0));
   const [won, setWon] = useState(false);
@@ -41,13 +51,20 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
   const boardRef = useRef<HTMLDivElement>(null);
   const startedRef = useRef(false);
 
-  const reset = useCallback(() => {
-    setGrid(newGame());
-    setScore(0);
-    setWon(false);
-    setOver(false);
-    ctx.analytics.levelStart("endless");
-  }, [ctx]);
+  // Reset the game to a given level (board size + win target).
+  const resetLevel = useCallback(
+    (key: LevelKey) => {
+      setLevel(key);
+      setGrid(newGame(LEVELS[key].size));
+      setScore(0);
+      setWon(false);
+      setOver(false);
+      ctx.analytics.levelStart(key);
+    },
+    [ctx],
+  );
+
+  const reset = useCallback(() => resetLevel(level), [resetLevel, level]);
 
   useEffect(() => {
     if (!startedRef.current) {
@@ -78,27 +95,27 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
             return ns;
           });
           // Pulse each merged tile for tactile feedback.
-          const idx = new Set(res.merged.map(([r, c]) => r * SIZE + c));
+          const idx = new Set(res.merged.map(([r, c]) => r * size + c));
           setMergedIdx(idx);
           setTimeout(() => setMergedIdx(new Set()), 260);
         }
-        if (!won && hasWon(next)) {
+        if (!won && hasWon(next, target)) {
           setWon(true);
           ctx.audio.play("win");
           haptic.win();
           celebrate();
-          ctx.analytics.levelComplete("reach-2048", 0);
+          ctx.analytics.levelComplete(`reach-${target}`, 0);
         }
         if (!hasMoves(next)) {
           setOver(true);
           ctx.audio.play("fail");
           if (boardRef.current) shake(boardRef.current);
-          ctx.analytics.levelFail("endless", "no-moves");
+          ctx.analytics.levelFail(level, "no-moves");
         }
         return next;
       });
     },
-    [ctx, over, won],
+    [ctx, over, won, size, target, level],
   );
 
   // Keyboard (desktop).
@@ -156,6 +173,18 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: 16 }}>
+      <div style={{ display: "flex", gap: 8 }}>
+        {LEVEL_ORDER.map((key) => (
+          <Button
+            key={key}
+            variant={key === level ? "primary" : "ghost"}
+            onClick={() => resetLevel(key)}
+          >
+            {ctx.dir === "rtl" ? LEVEL_LABELS[key].he : LEVEL_LABELS[key].en}
+          </Button>
+        ))}
+      </div>
+
       <div style={{ display: "flex", gap: 10 }}>
         <Stat label={ctx.t("score")} value={score} />
         <Stat label={ctx.t("best")} value={best} />
@@ -176,8 +205,8 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
           borderRadius: 14,
           padding: 10,
           display: "grid",
-          gridTemplateColumns: `repeat(${SIZE}, 1fr)`,
-          gridTemplateRows: `repeat(${SIZE}, 1fr)`, // equal rows regardless of tile content
+          gridTemplateColumns: `repeat(${size}, 1fr)`,
+          gridTemplateRows: `repeat(${size}, 1fr)`, // equal rows regardless of tile content
           gap: 10,
           touchAction: "none",
         }}

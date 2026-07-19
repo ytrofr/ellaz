@@ -1,0 +1,5 @@
+- generic [ref=f24e3]:
+  - generic [ref=f24e4]:
+    - button "back" [ref=f24e5] [cursor=pointer]: →
+    - button "mute" [pressed] [ref=f24e6] [cursor=pointer]: 🔊
+  - generic [ref=f24e8]: ⏳

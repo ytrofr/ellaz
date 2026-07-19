@@ -6,6 +6,13 @@ import { newGame, reveal, toggleFlag, DIFFICULTIES, type MineState, type Difficu
 
 const NUM_COLORS = ["", "#4d7cff", "#2e9e5b", "#e0533d", "#7a44c9", "#c9962e", "#2aa7b8", "#c94f9e", "#666"];
 
+// Analytics level name for a given config (avoids brittle chained ternaries as difficulties grow).
+function levelName(d: Difficulty): "easy" | "medium" | "hard" {
+  if (d === DIFFICULTIES.hard) return "hard";
+  if (d === DIFFICULTIES.medium) return "medium";
+  return "easy";
+}
+
 export function Minesweeper({ ctx }: { ctx: GameContext }) {
   const [diff, setDiff] = useState<Difficulty>(DIFFICULTIES.easy);
   const [state, setState] = useState<MineState>(() => newGame(DIFFICULTIES.easy));
@@ -25,8 +32,7 @@ export function Minesweeper({ ctx }: { ctx: GameContext }) {
     (d = diff) => {
       setDiff(d);
       setState(newGame(d));
-      const level = d === DIFFICULTIES.medium ? "medium" : "easy";
-      ctx.analytics.levelStart(level);
+      ctx.analytics.levelStart(levelName(d));
     },
     [ctx, diff],
   );
@@ -47,13 +53,13 @@ export function Minesweeper({ ctx }: { ctx: GameContext }) {
         ctx.audio.play("fail");
         haptic.fail();
         if (boardRef.current) shake(boardRef.current);
-        ctx.analytics.levelFail(diff === DIFFICULTIES.medium ? "medium" : "easy", "mine");
+        ctx.analytics.levelFail(levelName(diff), "mine");
       } else if (ns.won) {
         ctx.audio.play("win");
         haptic.win();
         celebrate();
         if (clientX != null && clientY != null) burst(clientX, clientY, { count: 14 });
-        ctx.analytics.levelComplete(diff === DIFFICULTIES.medium ? "medium" : "easy", 0);
+        ctx.analytics.levelComplete(levelName(diff), 0);
       } else {
         ctx.audio.play("pop");
       }
@@ -93,6 +99,12 @@ export function Minesweeper({ ctx }: { ctx: GameContext }) {
           onClick={() => reset(DIFFICULTIES.medium)}
         >
           {ctx.locale === "he" ? "בינוני" : "Med"}
+        </Button>
+        <Button
+          variant={diff === DIFFICULTIES.hard ? "primary" : "ghost"}
+          onClick={() => reset(DIFFICULTIES.hard)}
+        >
+          {ctx.locale === "he" ? "קשה" : "Hard"}
         </Button>
       </div>
 

@@ -72,4 +72,35 @@ describe("memory logic", () => {
     const out = shuffle([1, 2, 3, 4, 5], () => 0.5);
     expect(out.slice().sort()).toEqual([1, 2, 3, 4, 5]);
   });
+
+  // Difficulty levels pass a differently-sized faces slice to newGame. Verify the
+  // deck size and totalPairs scale with the slice, and every face appears exactly twice.
+  it.each([
+    [6, "easy"],
+    [8, "medium"],
+    [10, "hard"],
+  ])("builds a %i-pair deck (%s) with each face appearing twice", (pairs) => {
+    const faces = Array.from({ length: pairs }, (_, i) => `F${i}`);
+    const s = newGame(faces, () => 0);
+    expect(s.cards.length).toBe(pairs * 2);
+    expect(s.totalPairs).toBe(pairs);
+    expect(s.cards.every((c) => !c.flipped && !c.matched)).toBe(true);
+    for (const f of faces) {
+      expect(s.cards.filter((c) => c.face === f).length).toBe(2);
+    }
+  });
+
+  it("wins a larger (10-pair) deck by greedily matching every pair", () => {
+    const faces = Array.from({ length: 10 }, (_, i) => `F${i}`);
+    let s = newGame(faces, () => 0);
+    while (!isWon(s)) {
+      const a = s.cards.findIndex((c) => !c.matched);
+      const b = s.cards.findIndex((c, i) => i !== a && !c.matched && c.face === s.cards[a].face);
+      s = flip(s, a).state;
+      s = flip(s, b).state;
+    }
+    expect(isWon(s)).toBe(true);
+    expect(s.matchedPairs).toBe(10);
+    expect(s.moves).toBe(10);
+  });
 });

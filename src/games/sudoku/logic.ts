@@ -9,8 +9,8 @@ export interface SudokuState {
   solution: Grid;
 }
 
-export type Level = "easy" | "medium" | "hard";
-const GIVENS: Record<Level, number> = { easy: 42, medium: 34, hard: 28 };
+export type Level = "easy" | "medium" | "hard" | "expert";
+const GIVENS: Record<Level, number> = { easy: 42, medium: 34, hard: 28, expert: 24 };
 
 function emptyGrid(): Grid {
   return Array.from({ length: 9 }, () => Array<number>(9).fill(0));

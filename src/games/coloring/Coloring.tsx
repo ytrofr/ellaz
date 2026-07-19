@@ -56,7 +56,12 @@ export function Coloring({ ctx }: { ctx: GameContext }) {
         <Button variant="ghost" kids ariaLabel="clear" onClick={clearPage}>
           🧽
         </Button>
-        <div style={{ fontWeight: 800, fontSize: 20 }}>{pic.name[ctx.locale]}</div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1.1 }}>
+          <div style={{ fontWeight: 800, fontSize: 20 }}>{pic.name[ctx.locale]}</div>
+          <div style={{ color: "var(--text-dim)", fontSize: 12 }}>
+            {picIdx + 1}/{PICTURES.length}
+          </div>
+        </div>
         <Button variant="ghost" kids ariaLabel="next picture" onClick={nextPicture}>
           ➡
         </Button>
@@ -84,6 +89,18 @@ export function Coloring({ ctx }: { ctx: GameContext }) {
               strokeLinejoin="round"
               onPointerDown={() => paint(r.id)}
               style={{ cursor: "pointer" }}
+            />
+          ))}
+          {/* Decorative strokes (whiskers, antennae) — drawn on top, not fillable. */}
+          {pic.outlines?.map((d, i) => (
+            <path
+              key={`outline-${i}`}
+              d={d}
+              fill="none"
+              stroke="#2d3436"
+              strokeWidth={2}
+              strokeLinecap="round"
+              style={{ pointerEvents: "none" }}
             />
           ))}
         </svg>

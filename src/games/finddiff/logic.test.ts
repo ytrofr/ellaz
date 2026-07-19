@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { newGame, tapAt, isWon, remaining, type Diff } from "./logic";
+import { SCENES, diffsOf } from "./scenes";
 
 const DIFFS: Diff[] = [
   { id: "a", cx: 20, cy: 20, r: 12 },
@@ -47,5 +48,41 @@ describe("find-the-difference logic", () => {
     s = tapAt(s, 50, 90).state;
     expect(isWon(s)).toBe(true);
     expect(remaining(s)).toBe(0);
+  });
+});
+
+describe("scene data", () => {
+  it("ships at least 4 scenes", () => {
+    expect(SCENES.length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("every scene has exactly 5 differences with in-range coords and sane radii", () => {
+    for (const scene of SCENES) {
+      expect(scene.diffs.length, `${scene.id} diff count`).toBe(5);
+      for (const d of scene.diffs) {
+        expect(d.cx, `${scene.id}/${d.id} cx`).toBeGreaterThanOrEqual(0);
+        expect(d.cx, `${scene.id}/${d.id} cx`).toBeLessThanOrEqual(100);
+        expect(d.cy, `${scene.id}/${d.id} cy`).toBeGreaterThanOrEqual(0);
+        expect(d.cy, `${scene.id}/${d.id} cy`).toBeLessThanOrEqual(100);
+        expect(d.r, `${scene.id}/${d.id} r`).toBeGreaterThanOrEqual(6);
+        expect(d.r, `${scene.id}/${d.id} r`).toBeLessThanOrEqual(14);
+      }
+    }
+  });
+
+  it("each scene's diff ids are unique (marker lookup is by id)", () => {
+    for (const scene of SCENES) {
+      const ids = scene.diffs.map((d) => d.id);
+      expect(new Set(ids).size, `${scene.id} unique ids`).toBe(ids.length);
+    }
+  });
+
+  it("diffsOf projects to plain logic Diffs and wins when all are tapped", () => {
+    for (const scene of SCENES) {
+      let s = newGame(diffsOf(scene));
+      expect(remaining(s)).toBe(5);
+      for (const d of scene.diffs) s = tapAt(s, d.cx, d.cy).state;
+      expect(isWon(s), `${scene.id} winnable`).toBe(true);
+    }
   });
 });

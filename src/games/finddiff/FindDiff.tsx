@@ -8,6 +8,7 @@ import { SCENES, diffsOf, type Scene } from "./scenes";
 // Two pictures, spot the differences. Tap a difference on EITHER picture.
 export function FindDiff({ ctx }: { ctx: GameContext }) {
   const [sceneIdx, setSceneIdx] = useState(0);
+  const [level, setLevel] = useState(1);
   const scene: Scene = SCENES[sceneIdx];
   const [state, setState] = useState<FindState>(() => newGame(diffsOf(scene)));
   const [won, setWon] = useState(false);
@@ -31,6 +32,14 @@ export function FindDiff({ ctx }: { ctx: GameContext }) {
     },
     [ctx, sceneIdx],
   );
+
+  // Win → advance to the next scene; wrapping past the last scene bumps the
+  // Level counter, so progression is endless (Scene 1 again at Level +1).
+  const advance = useCallback(() => {
+    const nextIdx = (sceneIdx + 1) % SCENES.length;
+    if (nextIdx === 0) setLevel((l) => l + 1);
+    reset(nextIdx);
+  }, [sceneIdx, reset]);
 
   const onTapPicture = useCallback(
     (e: ReactPointerEvent<SVGSVGElement>) => {
@@ -77,6 +86,7 @@ export function FindDiff({ ctx }: { ctx: GameContext }) {
   return (
     <div ref={wrapRef} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, padding: 12 }}>
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <Stat label={ctx.locale === "he" ? "שלב" : "Level"} value={level} />
         <Stat label={ctx.locale === "he" ? "נותרו" : "Left"} value={remaining(state)} />
         <div style={{ fontWeight: 800 }}>{scene.name[ctx.locale]}</div>
         <Button variant="ghost" kids ariaLabel="restart" onClick={() => reset()}>
@@ -115,7 +125,7 @@ export function FindDiff({ ctx }: { ctx: GameContext }) {
       {won ? (
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 40 }}>🎉</div>
-          <Button kids onClick={() => reset((sceneIdx + 1) % SCENES.length)}>
+          <Button kids onClick={advance}>
             ▶
           </Button>
         </div>

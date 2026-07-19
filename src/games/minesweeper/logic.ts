@@ -22,9 +22,11 @@ export interface Difficulty {
   cols: number;
   mines: number;
 }
-export const DIFFICULTIES: Record<"easy" | "medium", Difficulty> = {
+export const DIFFICULTIES: Record<"easy" | "medium" | "hard", Difficulty> = {
   easy: { rows: 9, cols: 9, mines: 10 },
   medium: { rows: 12, cols: 12, mines: 24 },
+  // 40/196 ≈ 20.4% density — matches classic "expert" (~20.6%), challenging but solvable.
+  hard: { rows: 14, cols: 14, mines: 40 },
 };
 
 function emptyCell(): Cell {

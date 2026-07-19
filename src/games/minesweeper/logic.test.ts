@@ -25,6 +25,20 @@ describe("minesweeper logic", () => {
     expect(s.dead).toBe(false);
   });
 
+  it("hard: places the right mine count and keeps the first click safe", () => {
+    const d = DIFFICULTIES.hard;
+    expect(d.rows).toBe(14);
+    expect(d.cols).toBe(14);
+    const s = reveal(newGame(d), 7, 7, () => 0.5);
+    expect(s.placed).toBe(true);
+    expect(countMines(s)).toBe(40);
+    // first-click cell and all its neighbors must be mine-free
+    for (let dr = -1; dr <= 1; dr++)
+      for (let dc = -1; dc <= 1; dc++) expect(s.grid[7 + dr][7 + dc].mine).toBe(false);
+    expect(s.grid[7][7].revealed).toBe(true);
+    expect(s.dead).toBe(false);
+  });
+
   it("does not place a mine on the first-click cell or its neighbors", () => {
     const s = placeMines(newGame(DIFFICULTIES.medium), 5, 5, () => 0.999);
     for (let dr = -1; dr <= 1; dr++)

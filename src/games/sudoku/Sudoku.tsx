@@ -4,6 +4,14 @@ import { Button } from "@ui/components";
 import { burst, haptic, celebrate } from "@juice/index";
 import { generate, setCell, conflicts, isSolved, type SudokuState, type Level } from "./logic";
 
+const LEVELS: Level[] = ["easy", "medium", "hard", "expert"];
+const LEVEL_LABELS: Record<Level, { he: string; en: string }> = {
+  easy: { he: "קל", en: "Easy" },
+  medium: { he: "בינוני", en: "Med" },
+  hard: { he: "קשה", en: "Hard" },
+  expert: { he: "מומחה", en: "Expert" },
+};
+
 export function Sudoku({ ctx }: { ctx: GameContext }) {
   const [level, setLevel] = useState<Level>("easy");
   const [state, setState] = useState<SudokuState>(() => generate("easy"));
@@ -67,16 +75,19 @@ export function Sudoku({ ctx }: { ctx: GameContext }) {
   }, [enter]);
 
   const selVal = sel ? state.puzzle[sel[0]][sel[1]] : 0;
+  const empties = useMemo(
+    () => state.puzzle.reduce((n, row) => n + row.filter((v) => v === 0).length, 0),
+    [state],
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, padding: 12 }}>
-      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <Button variant={level === "easy" ? "primary" : "ghost"} onClick={() => reset("easy")}>
-          {ctx.locale === "he" ? "קל" : "Easy"}
-        </Button>
-        <Button variant={level === "medium" ? "primary" : "ghost"} onClick={() => reset("medium")}>
-          {ctx.locale === "he" ? "בינוני" : "Med"}
-        </Button>
+      <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
+        {LEVELS.map((lv) => (
+          <Button key={lv} variant={level === lv ? "primary" : "ghost"} onClick={() => reset(lv)}>
+            {LEVEL_LABELS[lv][ctx.locale === "he" ? "he" : "en"]}
+          </Button>
+        ))}
         <Button variant="ghost" onClick={() => reset()}>
           {ctx.t("restart")}
         </Button>
@@ -158,8 +169,16 @@ export function Sudoku({ ctx }: { ctx: GameContext }) {
         </button>
       </div>
 
-      <div style={{ color: "var(--text-dim)", fontSize: 13 }}>
-        {won ? ctx.t("youWon") + " 🎉" : ctx.locale === "he" ? "בחרו תא והקישו מספר" : "Pick a cell, tap a number"}
+      <div style={{ color: "var(--text-dim)", fontSize: 13, display: "flex", gap: 10, alignItems: "center" }}>
+        <span>
+          {won ? ctx.t("youWon") + " 🎉" : ctx.locale === "he" ? "בחרו תא והקישו מספר" : "Pick a cell, tap a number"}
+        </span>
+        {!won && (
+          <span style={{ opacity: 0.7 }}>
+            {ctx.locale === "he" ? `נותרו ${empties}` : `${empties} left`}
+            {bad.size > 0 ? (ctx.locale === "he" ? ` · ${bad.size} שגיאות` : ` · ${bad.size} errors`) : ""}
+          </span>
+        )}
       </div>
     </div>
   );
