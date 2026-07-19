@@ -7,7 +7,12 @@ import { fileURLToPath, URL } from "node:url";
 // - Phaser is isolated into its own stable vendor chunk so it is downloaded once
 //   and cached across every Phaser-based game (see plan §5 / Appendix A2).
 // - PWA precaches the SHELL only; game chunks are runtime-cached on first play.
+// - `base` is "/" for root hosts (Firebase, local) and "/ellaz/" for GitHub Pages
+//   (a project site is served under /<repo>/). Set via BASE_PATH in CI.
+const base = process.env.BASE_PATH ?? "/";
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     VitePWA({
@@ -21,7 +26,9 @@ export default defineConfig({
         background_color: "#0f1226",
         display: "standalone",
         orientation: "any",
-        start_url: "/",
+        // relative so it resolves correctly under any base ("/" or "/ellaz/")
+        start_url: ".",
+        scope: base,
         icons: [
           { src: "icon.svg", sizes: "any", type: "image/svg+xml" },
           { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "maskable" },
