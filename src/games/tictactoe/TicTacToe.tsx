@@ -105,6 +105,9 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
+          // explicit equal rows: without this, a cell holding a big X/O glyph grows
+          // its row taller than the empty rows and the square board deforms
+          gridTemplateRows: "repeat(3, 1fr)",
           gap: 10,
           width: "min(84vw, 62vh, 360px)",
           aspectRatio: "1",
@@ -122,8 +125,14 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
                 borderRadius: 16,
                 background: winning ? "linear-gradient(180deg,#55efc4,#00cec9)" : "var(--surface)",
                 color: cell === "X" ? "var(--brand-2)" : "var(--teal)",
-                fontSize: "clamp(40px, 14vw, 80px)",
+                fontSize: "clamp(36px, 12vw, 72px)",
                 fontWeight: 800,
+                lineHeight: 1,
+                // grid items must be allowed to shrink below content size so the
+                // glyph never forces the cell to grow
+                minWidth: 0,
+                minHeight: 0,
+                overflow: "hidden",
                 display: "grid",
                 placeItems: "center",
                 boxShadow: "var(--shadow-1)",

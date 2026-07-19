@@ -65,6 +65,19 @@ export const CATALOG: CatalogEntry[] = [
   },
   {
     meta: {
+      id: "math",
+      title: { he: "חשבון", en: "Math" },
+      emoji: "➕",
+      color: "#00b894",
+      ageBand: "kids",
+      category: "kids",
+      orientation: "any",
+      renderer: "dom",
+    },
+    load: () => import("../games/math/index"),
+  },
+  {
+    meta: {
       id: "2048",
       title: { he: "2048", en: "2048" },
       emoji: "🔢",

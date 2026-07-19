@@ -14,6 +14,7 @@ describe("catalog", () => {
       "coloring",
       "finddiff",
       "hidden",
+      "math",
       "memory",
       "minesweeper",
       "snake",

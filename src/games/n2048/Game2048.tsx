@@ -176,6 +176,7 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
           padding: 10,
           display: "grid",
           gridTemplateColumns: `repeat(${SIZE}, 1fr)`,
+          gridTemplateRows: `repeat(${SIZE}, 1fr)`, // equal rows regardless of tile content
           gap: 10,
           touchAction: "none",
         }}
@@ -186,10 +187,14 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
             style={{
               display: "grid",
               placeItems: "center",
+              minWidth: 0,
+              minHeight: 0,
+              overflow: "hidden",
               background: v === 0 ? "rgba(238,228,218,0.35)" : TILE_COLORS[v] ?? "#3c3a32",
               borderRadius: 8,
               color: tileText(v),
               fontWeight: 800,
+              lineHeight: 1,
               fontSize: v >= 1024 ? "clamp(18px,5vw,30px)" : "clamp(22px,7vw,40px)",
               transition: "background 0.12s ease",
             }}

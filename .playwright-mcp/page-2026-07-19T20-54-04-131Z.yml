@@ -1,0 +1,21 @@
+- generic [ref=f14e3]:
+  - generic [ref=f14e4]:
+    - button "back" [ref=f14e5] [cursor=pointer]: ←
+    - button "mute" [pressed] [ref=f14e6] [cursor=pointer]: 🔊
+  - generic [ref=f14e11]:
+    - generic [ref=f14e12]:
+      - generic [ref=f14e13]:
+        - generic [ref=f14e14]: Score
+        - generic [ref=f14e15]: "1"
+      - generic [ref=f14e16]:
+        - generic [ref=f14e17]: Streak
+        - generic [ref=f14e18]: 1 🔥
+      - generic [ref=f14e19]:
+        - generic [ref=f14e20]: Best
+        - generic [ref=f14e21]: "1"
+    - generic [ref=f14e22]: 4 - 4 = ?
+    - generic [ref=f14e24]:
+      - button "answer 0" [ref=f14e29] [cursor=pointer]: "0"
+      - button "answer 1" [ref=f14e30] [cursor=pointer]: "1"
+      - button "answer 2" [ref=f14e31] [cursor=pointer]: "2"
+    - generic [ref=f14e28]: Tap the right answer ➕➖
