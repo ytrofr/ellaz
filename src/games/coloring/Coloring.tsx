@@ -53,7 +53,7 @@ export function Coloring({ ctx }: { ctx: GameContext }) {
       <div
         className="ellaz-play-surface"
         style={{
-          width: "min(88vw, 380px)",
+          width: "min(88vw, 58vh, 380px)",
           aspectRatio: "1",
           background: "#fff",
           borderRadius: 18,

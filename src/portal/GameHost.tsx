@@ -79,13 +79,14 @@ export function GameHost({
   }, [gameId, locale, onExit]);
 
   return (
-    <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column" }}>
+    <div style={{ position: "relative", flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
           gap: 10,
           padding: "10px 12px",
+          flexShrink: 0,
         }}
       >
         <IconButton ariaLabel="back" onClick={onExit}>
@@ -100,7 +101,13 @@ export function GameHost({
       <div
         ref={mountRef}
         className="ellaz-scroll"
-        style={{ flex: 1, display: "flex", alignItems: "flex-start", justifyContent: "center" }}
+        style={{
+          flex: 1,
+          minHeight: 0, // flex child must allow shrink for overflow-y to scroll
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+        }}
       />
 
       {loading && !error && (

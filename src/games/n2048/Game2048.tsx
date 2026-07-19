@@ -169,7 +169,7 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
         className="ellaz-play-surface"
         style={{
           position: "relative",
-          width: "min(88vw, 420px)",
+          width: "min(88vw, 62vh, 420px)",
           aspectRatio: "1",
           background: "#bbada0",
           borderRadius: 14,

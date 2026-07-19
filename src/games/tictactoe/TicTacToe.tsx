@@ -106,7 +106,7 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
           gap: 10,
-          width: "min(84vw, 360px)",
+          width: "min(84vw, 62vh, 360px)",
           aspectRatio: "1",
         }}
       >

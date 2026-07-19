@@ -88,7 +88,7 @@ export function FindDiff({ ctx }: { ctx: GameContext }) {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 10,
-          width: "min(94vw, 640px)",
+          width: "min(94vw, 116vh, 640px)",
         }}
       >
         {[leftSvg, rightSvg].map((svg, i) => (

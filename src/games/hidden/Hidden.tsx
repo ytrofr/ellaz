@@ -96,7 +96,7 @@ export function Hidden({ ctx }: { ctx: GameContext }) {
         className="ellaz-play-surface"
         style={{
           position: "relative",
-          width: "min(94vw, 560px)",
+          width: "min(94vw, 54vh, 560px)",
           aspectRatio: "1 / 1.1",
           background: "radial-gradient(circle at 50% 30%, #2b3170, #1a1e3f)",
           borderRadius: 18,

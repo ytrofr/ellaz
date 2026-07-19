@@ -88,7 +88,8 @@ export function Memory({ ctx }: { ctx: GameContext }) {
           display: "grid",
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gap: 12,
-          width: "min(92vw, 460px)",
+          // cap by height too so the 3-row grid fits landscape without scrolling
+          width: "min(92vw, 72vh, 460px)",
         }}
       >
         {state.cards.map((card, i) => {
