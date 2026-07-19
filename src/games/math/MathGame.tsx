@@ -78,6 +78,7 @@ export function MathGame({ ctx }: { ctx: GameContext }) {
         }}
       >
         <div
+          dir="ltr"
           style={{
             fontSize: "clamp(44px, 15vw, 84px)",
             fontWeight: 800,
