@@ -7,9 +7,17 @@ describe("catalog", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("includes the four Wave-1 games", () => {
+  it("includes the expected games", () => {
     const ids = CATALOG.map((e) => e.meta.id).sort();
-    expect(ids).toEqual(["2048", "coloring", "memory", "snake"]);
+    expect(ids).toEqual([
+      "2048",
+      "coloring",
+      "finddiff",
+      "hidden",
+      "memory",
+      "snake",
+      "tictactoe",
+    ]);
   });
 
   it("every entry has both locales and a loader", () => {

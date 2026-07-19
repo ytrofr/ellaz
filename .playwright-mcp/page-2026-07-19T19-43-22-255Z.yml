@@ -1,0 +1,20 @@
+- generic [ref=f7e39]:
+  - generic [ref=f7e40]:
+    - button "back" [ref=f7e41] [cursor=pointer]: ←
+    - button "mute" [pressed] [ref=f7e42] [cursor=pointer]: 🔊
+  - generic [ref=f7e47]:
+    - generic [ref=f7e48]:
+      - generic [ref=f7e49]:
+        - generic [ref=f7e50]: Status
+        - generic [ref=f7e51]: Your turn
+      - button "Restart" [ref=f7e52] [cursor=pointer]
+    - generic [ref=f7e53]:
+      - button "X" [active] [ref=f7e54] [cursor=pointer]
+      - button "cell 2" [ref=f7e55] [cursor=pointer]
+      - button "cell 3" [ref=f7e56] [cursor=pointer]
+      - button "cell 4" [ref=f7e57] [cursor=pointer]
+      - button "O" [ref=f7e58] [cursor=pointer]
+      - button "cell 6" [ref=f7e59] [cursor=pointer]
+      - button "cell 7" [ref=f7e60] [cursor=pointer]
+      - button "cell 8" [ref=f7e61] [cursor=pointer]
+      - button "cell 9" [ref=f7e62] [cursor=pointer]

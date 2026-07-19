@@ -39,6 +39,32 @@ export const CATALOG: CatalogEntry[] = [
   },
   {
     meta: {
+      id: "finddiff",
+      title: { he: "מצא הבדלים", en: "Find Differences" },
+      emoji: "🔍",
+      color: "#00cec9",
+      ageBand: "kids",
+      category: "kids",
+      orientation: "any",
+      renderer: "dom",
+    },
+    load: () => import("../games/finddiff/index"),
+  },
+  {
+    meta: {
+      id: "hidden",
+      title: { he: "מצא אותי", en: "Find Me" },
+      emoji: "👀",
+      color: "#a29bfe",
+      ageBand: "kids",
+      category: "kids",
+      orientation: "any",
+      renderer: "dom",
+    },
+    load: () => import("../games/hidden/index"),
+  },
+  {
+    meta: {
       id: "2048",
       title: { he: "2048", en: "2048" },
       emoji: "🔢",
@@ -49,6 +75,19 @@ export const CATALOG: CatalogEntry[] = [
       renderer: "dom",
     },
     load: () => import("../games/n2048/index"),
+  },
+  {
+    meta: {
+      id: "tictactoe",
+      title: { he: "איקס עיגול", en: "Tic-Tac-Toe" },
+      emoji: "⭕",
+      color: "#74b9ff",
+      ageBand: "all",
+      category: "classics",
+      orientation: "any",
+      renderer: "dom",
+    },
+    load: () => import("../games/tictactoe/index"),
   },
   {
     meta: {

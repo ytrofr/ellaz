@@ -1,0 +1,35 @@
+- generic [ref=f7e4]:
+  - banner [ref=f7e5]:
+    - generic [ref=f7e6]: 🎮
+    - generic [ref=f7e7]:
+      - heading "Ellaz" [level=1] [ref=f7e8]
+      - generic [ref=f7e9]: Games for everyone
+    - button "Language" [ref=f7e10] [cursor=pointer]: עב
+  - generic [ref=f7e11]:
+    - heading "For kids" [level=2] [ref=f7e12]
+    - generic [ref=f7e13]:
+      - button "🧠 Memory" [ref=f7e14] [cursor=pointer]:
+        - generic [ref=f7e15]: 🧠
+        - generic [ref=f7e16]: Memory
+      - button "🎨 Coloring" [ref=f7e17] [cursor=pointer]:
+        - generic [ref=f7e18]: 🎨
+        - generic [ref=f7e19]: Coloring
+      - button "🔍 Find Differences" [ref=f7e20] [cursor=pointer]:
+        - generic [ref=f7e21]: 🔍
+        - generic [ref=f7e22]: Find Differences
+      - button "👀 Find Me" [ref=f7e23] [cursor=pointer]:
+        - generic [ref=f7e24]: 👀
+        - generic [ref=f7e25]: Find Me
+  - generic [ref=f7e26]:
+    - heading "Classics" [level=2] [ref=f7e27]
+    - generic [ref=f7e28]:
+      - button "🔢 2048" [ref=f7e29] [cursor=pointer]:
+        - generic [ref=f7e30]: 🔢
+        - generic [ref=f7e31]: "2048"
+      - button "⭕ Tic-Tac-Toe" [ref=f7e32] [cursor=pointer]:
+        - generic [ref=f7e33]: ⭕
+        - generic [ref=f7e34]: Tic-Tac-Toe
+      - button "🐍 Snake" [ref=f7e35] [cursor=pointer]:
+        - generic [ref=f7e36]: 🐍
+        - generic [ref=f7e37]: Snake
+  - paragraph [ref=f7e38]: 📲 Add to home screen to play offline

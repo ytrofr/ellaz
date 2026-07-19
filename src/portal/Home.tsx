@@ -19,7 +19,8 @@ export function Home({
   const classics = CATALOG.filter((e) => e.meta.category === "classics");
 
   return (
-    <div className="ellaz-scroll" style={{ flex: 1, padding: "8px 16px 32px" }}>
+    <div className="ellaz-scroll" style={{ flex: 1 }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "8px 16px 32px" }}>
       <header
         style={{
           display: "flex",
@@ -57,6 +58,7 @@ export function Home({
       <p style={{ color: "var(--text-dim)", fontSize: 13, textAlign: "center", marginTop: 28 }}>
         📲 {t("installHint")}
       </p>
+      </div>
     </div>
   );
 }
