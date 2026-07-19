@@ -1,0 +1,2 @@
+[     165ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://ytrofr.github.io/ellaz/assets/index-Pmi3hNW5.js:0
+[     166ms] [ERROR] [ellaz] game load failed TypeError: Failed to fetch dynamically imported module: https://ytrofr.github.io/ellaz/assets/index-Pmi3hNW5.js @ https://ytrofr.github.io/ellaz/assets/index-LrVLT2tm.js:10

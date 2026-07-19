@@ -12,6 +12,7 @@ export function MathGame({ ctx }: { ctx: GameContext }) {
   const [wrongChoice, setWrongChoice] = useState<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const started = useRef(false);
+  const streakRef = useRef(0); // authoritative streak for side-effects (no stale closure)
 
   useEffect(() => {
     if (!started.current) {
@@ -30,24 +31,26 @@ export function MathGame({ ctx }: { ctx: GameContext }) {
     (choice: number, e: ReactPointerEvent) => {
       ctx.audio.unlock();
       if (isCorrect(problem, choice)) {
+        const ns = streakRef.current + 1;
+        streakRef.current = ns;
         ctx.audio.play("success");
         haptic.success();
         burst(e.clientX, e.clientY, { count: 12 });
         setScore((s) => s + 1);
-        setStreak((s) => {
-          const ns = s + 1;
-          setBest((b) => {
-            const nb = Math.max(b, ns);
-            ctx.storage.set("best", nb);
-            return nb;
-          });
-          if (ns > 0 && ns % 5 === 0) celebrate(); // reward every 5-in-a-row
-          return ns;
+        setStreak(ns);
+        setBest((b) => {
+          const nb = Math.max(b, ns);
+          ctx.storage.set("best", nb);
+          return nb;
         });
+        // Side-effect lives in the handler (not a state updater) so it fires once,
+        // reliably, on every 5-in-a-row.
+        if (ns % 5 === 0) celebrate();
         ctx.analytics.levelComplete("addsub10", 0);
         next();
       } else {
         // Gentle: shake the wrong answer, reset streak, let them try again.
+        streakRef.current = 0;
         ctx.audio.play("fail");
         haptic.fail();
         setStreak(0);

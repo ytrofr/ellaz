@@ -1,0 +1,23 @@
+- generic [ref=f22e3]:
+  - generic [ref=f22e4]:
+    - button "back" [ref=f22e5] [cursor=pointer]: →
+    - button "mute" [pressed] [ref=f22e6] [cursor=pointer]: 🔊
+  - generic [ref=f22e9]:
+    - generic [ref=f22e10]:
+      - button "clear" [ref=f22e11] [cursor=pointer]: 🧽
+      - generic [ref=f22e12]: בית
+      - button "next picture" [ref=f22e13] [cursor=pointer]: ➡
+    - generic [ref=f22e23]:
+      - 'button "color #ff7675" [pressed] [ref=f22e24] [cursor=pointer]'
+      - 'button "color #fdcb6e" [ref=f22e25] [cursor=pointer]'
+      - 'button "color #ffeaa7" [ref=f22e26] [cursor=pointer]'
+      - 'button "color #55efc4" [ref=f22e27] [cursor=pointer]'
+      - 'button "color #00cec9" [ref=f22e28] [cursor=pointer]'
+      - 'button "color #74b9ff" [ref=f22e29] [cursor=pointer]'
+      - 'button "color #a29bfe" [ref=f22e30] [cursor=pointer]'
+      - 'button "color #fd79a8" [ref=f22e31] [cursor=pointer]'
+      - 'button "color #e17055" [ref=f22e32] [cursor=pointer]'
+      - 'button "color #636e72" [ref=f22e33] [cursor=pointer]'
+      - 'button "color #2d3436" [ref=f22e34] [cursor=pointer]'
+      - 'button "color #ffffff" [ref=f22e35] [cursor=pointer]'
+    - generic [ref=f22e36]: בחרו צבע 🎨
