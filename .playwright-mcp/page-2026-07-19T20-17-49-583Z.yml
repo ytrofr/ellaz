@@ -1,0 +1,103 @@
+- generic [ref=f11e3]:
+  - generic [ref=f11e4]:
+    - button "back" [ref=f11e5] [cursor=pointer]: ←
+    - button "mute" [pressed] [ref=f11e6] [cursor=pointer]: 🔊
+  - generic [ref=f11e104]:
+    - generic [ref=f11e105]:
+      - button "Easy" [ref=f11e106] [cursor=pointer]
+      - button "Med" [ref=f11e107] [cursor=pointer]
+      - button "Restart" [ref=f11e108] [cursor=pointer]
+    - generic [ref=f11e109]:
+      - button "cell 1,1" [ref=f11e110] [cursor=pointer]
+      - button "cell 1,2" [ref=f11e111] [cursor=pointer]
+      - button "cell 1,3" [active] [ref=f11e112] [cursor=pointer]
+      - button "cell 1,4" [ref=f11e113] [cursor=pointer]: "6"
+      - button "cell 1,5" [ref=f11e114] [cursor=pointer]
+      - button "cell 1,6" [ref=f11e115] [cursor=pointer]: "5"
+      - button "cell 1,7" [ref=f11e116] [cursor=pointer]
+      - button "cell 1,8" [ref=f11e117] [cursor=pointer]: "1"
+      - button "cell 1,9" [ref=f11e118] [cursor=pointer]
+      - button "cell 2,1" [ref=f11e119] [cursor=pointer]: "8"
+      - button "cell 2,2" [ref=f11e120] [cursor=pointer]
+      - button "cell 2,3" [ref=f11e121] [cursor=pointer]: "7"
+      - button "cell 2,4" [ref=f11e122] [cursor=pointer]: "2"
+      - button "cell 2,5" [ref=f11e123] [cursor=pointer]
+      - button "cell 2,6" [ref=f11e124] [cursor=pointer]: "4"
+      - button "cell 2,7" [ref=f11e125] [cursor=pointer]: "9"
+      - button "cell 2,8" [ref=f11e126] [cursor=pointer]: "6"
+      - button "cell 2,9" [ref=f11e127] [cursor=pointer]: "3"
+      - button "cell 3,1" [ref=f11e128] [cursor=pointer]: "1"
+      - button "cell 3,2" [ref=f11e129] [cursor=pointer]
+      - button "cell 3,3" [ref=f11e130] [cursor=pointer]: "6"
+      - button "cell 3,4" [ref=f11e131] [cursor=pointer]: "7"
+      - button "cell 3,5" [ref=f11e132] [cursor=pointer]
+      - button "cell 3,6" [ref=f11e133] [cursor=pointer]
+      - button "cell 3,7" [ref=f11e134] [cursor=pointer]: "2"
+      - button "cell 3,8" [ref=f11e135] [cursor=pointer]: "5"
+      - button "cell 3,9" [ref=f11e136] [cursor=pointer]: "4"
+      - button "cell 4,1" [ref=f11e137] [cursor=pointer]
+      - button "cell 4,2" [ref=f11e138] [cursor=pointer]: "9"
+      - button "cell 4,3" [ref=f11e139] [cursor=pointer]: "3"
+      - button "cell 4,4" [ref=f11e140] [cursor=pointer]
+      - button "cell 4,5" [ref=f11e141] [cursor=pointer]
+      - button "cell 4,6" [ref=f11e142] [cursor=pointer]
+      - button "cell 4,7" [ref=f11e143] [cursor=pointer]
+      - button "cell 4,8" [ref=f11e144] [cursor=pointer]: "7"
+      - button "cell 4,9" [ref=f11e145] [cursor=pointer]
+      - button "cell 5,1" [ref=f11e146] [cursor=pointer]: "4"
+      - button "cell 5,2" [ref=f11e147] [cursor=pointer]: "6"
+      - button "cell 5,3" [ref=f11e148] [cursor=pointer]
+      - button "cell 5,4" [ref=f11e149] [cursor=pointer]: "5"
+      - button "cell 5,5" [ref=f11e150] [cursor=pointer]
+      - button "cell 5,6" [ref=f11e151] [cursor=pointer]: "2"
+      - button "cell 5,7" [ref=f11e152] [cursor=pointer]
+      - button "cell 5,8" [ref=f11e153] [cursor=pointer]
+      - button "cell 5,9" [ref=f11e154] [cursor=pointer]: "1"
+      - button "cell 6,1" [ref=f11e155] [cursor=pointer]
+      - button "cell 6,2" [ref=f11e156] [cursor=pointer]
+      - button "cell 6,3" [ref=f11e157] [cursor=pointer]: "1"
+      - button "cell 6,4" [ref=f11e158] [cursor=pointer]: "9"
+      - button "cell 6,5" [ref=f11e159] [cursor=pointer]
+      - button "cell 6,6" [ref=f11e160] [cursor=pointer]: "3"
+      - button "cell 6,7" [ref=f11e161] [cursor=pointer]
+      - button "cell 6,8" [ref=f11e162] [cursor=pointer]: "4"
+      - button "cell 6,9" [ref=f11e163] [cursor=pointer]: "2"
+      - button "cell 7,1" [ref=f11e164] [cursor=pointer]
+      - button "cell 7,2" [ref=f11e165] [cursor=pointer]
+      - button "cell 7,3" [ref=f11e166] [cursor=pointer]: "4"
+      - button "cell 7,4" [ref=f11e167] [cursor=pointer]: "3"
+      - button "cell 7,5" [ref=f11e168] [cursor=pointer]: "2"
+      - button "cell 7,6" [ref=f11e169] [cursor=pointer]: "9"
+      - button "cell 7,7" [ref=f11e170] [cursor=pointer]: "6"
+      - button "cell 7,8" [ref=f11e171] [cursor=pointer]
+      - button "cell 7,9" [ref=f11e172] [cursor=pointer]
+      - button "cell 8,1" [ref=f11e173] [cursor=pointer]: "3"
+      - button "cell 8,2" [ref=f11e174] [cursor=pointer]
+      - button "cell 8,3" [ref=f11e175] [cursor=pointer]: "9"
+      - button "cell 8,4" [ref=f11e176] [cursor=pointer]: "1"
+      - button "cell 8,5" [ref=f11e177] [cursor=pointer]: "5"
+      - button "cell 8,6" [ref=f11e178] [cursor=pointer]
+      - button "cell 8,7" [ref=f11e179] [cursor=pointer]: "4"
+      - button "cell 8,8" [ref=f11e180] [cursor=pointer]
+      - button "cell 8,9" [ref=f11e181] [cursor=pointer]
+      - button "cell 9,1" [ref=f11e182] [cursor=pointer]: "6"
+      - button "cell 9,2" [ref=f11e183] [cursor=pointer]
+      - button "cell 9,3" [ref=f11e184] [cursor=pointer]
+      - button "cell 9,4" [ref=f11e185] [cursor=pointer]: "8"
+      - button "cell 9,5" [ref=f11e186] [cursor=pointer]
+      - button "cell 9,6" [ref=f11e187] [cursor=pointer]
+      - button "cell 9,7" [ref=f11e188] [cursor=pointer]
+      - button "cell 9,8" [ref=f11e189] [cursor=pointer]: "3"
+      - button "cell 9,9" [ref=f11e190] [cursor=pointer]
+    - generic [ref=f11e191]:
+      - button "enter 1" [ref=f11e192] [cursor=pointer]: "1"
+      - button "enter 2" [ref=f11e193] [cursor=pointer]: "2"
+      - button "enter 3" [ref=f11e194] [cursor=pointer]: "3"
+      - button "enter 4" [ref=f11e195] [cursor=pointer]: "4"
+      - button "enter 5" [ref=f11e196] [cursor=pointer]: "5"
+      - button "enter 6" [ref=f11e197] [cursor=pointer]: "6"
+      - button "enter 7" [ref=f11e198] [cursor=pointer]: "7"
+      - button "enter 8" [ref=f11e199] [cursor=pointer]: "8"
+      - button "enter 9" [ref=f11e200] [cursor=pointer]: "9"
+      - button "erase" [ref=f11e201] [cursor=pointer]: ⌫
+    - generic [ref=f11e202]: Pick a cell, tap a number

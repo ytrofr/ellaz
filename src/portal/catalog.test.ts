@@ -15,7 +15,9 @@ describe("catalog", () => {
       "finddiff",
       "hidden",
       "memory",
+      "minesweeper",
       "snake",
+      "sudoku",
       "tictactoe",
     ]);
   });

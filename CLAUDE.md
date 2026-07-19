@@ -45,7 +45,8 @@ src/
    └─ <Renderer>      React component (DOM) or Phaser scene (canvas)
 ```
 
-Games: memory, coloring, finddiff, hidden (kids) · 2048, tictactoe, snake (classics).
+Games: memory, coloring, finddiff, hidden (kids) · 2048, tictactoe, minesweeper,
+sudoku, snake (classics).
 
 ## Non-negotiable conventions
 

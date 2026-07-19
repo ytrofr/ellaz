@@ -91,6 +91,32 @@ export const CATALOG: CatalogEntry[] = [
   },
   {
     meta: {
+      id: "minesweeper",
+      title: { he: "שולה מוקשים", en: "Minesweeper" },
+      emoji: "💣",
+      color: "#636e72",
+      ageBand: "all",
+      category: "classics",
+      orientation: "any",
+      renderer: "dom",
+    },
+    load: () => import("../games/minesweeper/index"),
+  },
+  {
+    meta: {
+      id: "sudoku",
+      title: { he: "סודוקו", en: "Sudoku" },
+      emoji: "🔡",
+      color: "#0984e3",
+      ageBand: "all",
+      category: "classics",
+      orientation: "any",
+      renderer: "dom",
+    },
+    load: () => import("../games/sudoku/index"),
+  },
+  {
+    meta: {
       id: "snake",
       title: { he: "נחש", en: "Snake" },
       emoji: "🐍",
