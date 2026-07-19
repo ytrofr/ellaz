@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button, Stat } from "@ui/components";
-import { burst, shake, haptic } from "@juice/index";
+import { shake, haptic, celebrate } from "@juice/index";
 import {
   newGame,
   move,
@@ -37,6 +37,7 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
   const [best, setBest] = useState(() => ctx.storage.get("best", 0));
   const [won, setWon] = useState(false);
   const [over, setOver] = useState(false);
+  const [mergedIdx, setMergedIdx] = useState<Set<number>>(() => new Set());
   const boardRef = useRef<HTMLDivElement>(null);
   const startedRef = useRef(false);
 
@@ -76,17 +77,16 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
             });
             return ns;
           });
-          // Burst at the board center-ish for merge feedback.
-          const el = boardRef.current;
-          if (el) {
-            const r = el.getBoundingClientRect();
-            burst(r.left + r.width / 2, r.top + r.height / 2, { count: 8 });
-          }
+          // Pulse each merged tile for tactile feedback.
+          const idx = new Set(res.merged.map(([r, c]) => r * SIZE + c));
+          setMergedIdx(idx);
+          setTimeout(() => setMergedIdx(new Set()), 260);
         }
         if (!won && hasWon(next)) {
           setWon(true);
           ctx.audio.play("win");
           haptic.win();
+          celebrate();
           ctx.analytics.levelComplete("reach-2048", 0);
         }
         if (!hasMoves(next)) {
@@ -184,6 +184,7 @@ export function Game2048({ ctx }: { ctx: GameContext }) {
         {grid.flat().map((v, i) => (
           <div
             key={i}
+            className={mergedIdx.has(i) ? "ellaz-merge" : undefined}
             style={{
               display: "grid",
               placeItems: "center",

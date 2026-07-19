@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState, useEffect, type PointerEvent as ReactPointerEvent } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button, Stat } from "@ui/components";
-import { burst, shake, haptic } from "@juice/index";
+import { burst, shake, haptic, celebrate } from "@juice/index";
 import { newGame, tapAt, isWon, remaining, type FindState } from "./logic";
 import { SCENES, diffsOf, type Scene } from "./scenes";
 
@@ -50,6 +50,7 @@ export function FindDiff({ ctx }: { ctx: GameContext }) {
           setWon(true);
           ctx.audio.play("win");
           haptic.win();
+          celebrate();
           ctx.analytics.levelComplete(scene.id, ns.misses);
         }
       } else if (result.kind === "miss") {

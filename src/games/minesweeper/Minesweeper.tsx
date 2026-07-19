@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button, Stat } from "@ui/components";
-import { burst, shake, haptic } from "@juice/index";
+import { burst, shake, haptic, celebrate } from "@juice/index";
 import { newGame, reveal, toggleFlag, DIFFICULTIES, type MineState, type Difficulty } from "./logic";
 
 const NUM_COLORS = ["", "#4d7cff", "#2e9e5b", "#e0533d", "#7a44c9", "#c9962e", "#2aa7b8", "#c94f9e", "#666"];
@@ -51,6 +51,7 @@ export function Minesweeper({ ctx }: { ctx: GameContext }) {
       } else if (ns.won) {
         ctx.audio.play("win");
         haptic.win();
+        celebrate();
         if (clientX != null && clientY != null) burst(clientX, clientY, { count: 14 });
         ctx.analytics.levelComplete(diff === DIFFICULTIES.medium ? "medium" : "easy", 0);
       } else {

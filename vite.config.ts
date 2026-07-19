@@ -16,7 +16,10 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "prompt", // never autoUpdate: a mid-game SW swap must not yank chunks
+      // autoUpdate: a new deploy activates on the user's next load and reloads the
+      // page, so returning players always get new games/fixes. (Prompt mode left
+      // users stuck on a stale cache with no visible update path.)
+      registerType: "autoUpdate",
       includeAssets: ["favicon.svg", "icon.svg"],
       manifest: {
         name: "Ellaz Games",

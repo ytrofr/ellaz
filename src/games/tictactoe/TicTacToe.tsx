@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button, Stat } from "@ui/components";
-import { burst, shake, haptic } from "@juice/index";
+import { burst, shake, haptic, celebrate } from "@juice/index";
 import { emptyBoard, winner, isDraw, place, bestMove, type Board } from "./logic";
 
 // Human is X (goes first), AI is O (unbeatable minimax). Tap a cell to play.
@@ -35,6 +35,7 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
         if (w.player === "X") {
           ctx.audio.play("win");
           haptic.win();
+          celebrate();
           if (boardRef.current) {
             const r = boardRef.current.getBoundingClientRect();
             burst(r.left + r.width / 2, r.top + r.height / 2, { count: 14 });
@@ -118,6 +119,7 @@ export function TicTacToe({ ctx }: { ctx: GameContext }) {
           return (
             <button
               key={i}
+              className={winning ? "ellaz-pulse" : undefined}
               aria-label={cell ?? `cell ${i + 1}`}
               onClick={() => onCell(i)}
               style={{

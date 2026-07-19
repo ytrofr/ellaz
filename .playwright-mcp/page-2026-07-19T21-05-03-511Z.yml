@@ -1,0 +1,17 @@
+- generic [ref=f20e3]:
+  - generic [ref=f20e4]:
+    - button "back" [ref=f20e5] [cursor=pointer]: →
+    - button "mute" [pressed] [ref=f20e6] [cursor=pointer]: 🔊
+  - generic [ref=f20e9]:
+    - generic [ref=f20e10]:
+      - generic [ref=f20e11]:
+        - generic [ref=f20e12]: ניקוד
+        - generic [ref=f20e13]: "0"
+      - generic [ref=f20e14]:
+        - generic [ref=f20e15]: שיא
+        - generic [ref=f20e16]: "0"
+      - button "מהתחלה" [ref=f20e17] [cursor=pointer]
+    - generic [ref=f20e18]:
+      - generic [ref=f20e19]: "2"
+      - generic [ref=f20e28]: "4"
+    - generic [ref=f20e35]: החליקו או חצים

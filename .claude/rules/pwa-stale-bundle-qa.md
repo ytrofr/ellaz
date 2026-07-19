@@ -1,17 +1,22 @@
-# PWA Prompt-Update Serves the Stale Bundle During QA
+# PWA Service Worker Can Serve a Stale Bundle During QA
 
 **Scope**: All QA/eyeballing of production builds of this app.
 
 ## Core Rule
 
-The production build registers a service worker with `registerType: "prompt"`
-(see `vite.config.ts`), so an active SW keeps serving the **previously cached
-bundle** until the user accepts an update. When verifying a fresh build, either:
+The production build registers a service worker (`registerType: "autoUpdate"`, see
+`vite.config.ts`). A new deploy activates on the user's **next load** and reloads the
+page — but a browser tab already open on the old SW keeps serving the previously
+cached bundle until that reload happens. When verifying a fresh build, either:
 
 - run `npm run dev` (no service worker), or
-- clear the SW + Cache Storage first.
+- clear the SW + Cache Storage and reload.
 
-Otherwise you are testing STALE code and will wrongly conclude "my fix didn't work".
+Otherwise you may test STALE code and wrongly conclude "my fix didn't ship".
+
+**History**: this was worse under the earlier `registerType: "prompt"` — with no
+visible update UI, returning users were stuck on the old cache forever (they never
+saw new games). Switched to `autoUpdate` so updates actually reach players.
 
 ## When to Apply
 

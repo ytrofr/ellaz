@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button, Stat } from "@ui/components";
-import { burst, haptic } from "@juice/index";
+import { burst, haptic, celebrate } from "@juice/index";
 import { newGame, flip, resolveMismatch, isWon, type MemoryState } from "./logic";
 
 // Big, colorful animal faces — icon-first, no reading required (age 5).
@@ -58,6 +58,7 @@ export function Memory({ ctx }: { ctx: GameContext }) {
           setWon(true);
           ctx.audio.play("win");
           haptic.win();
+          celebrate();
           ctx.analytics.levelComplete(`set-${setIdx + 1}`, ns.moves);
         }
       } else if (outcome.kind === "mismatch") {
@@ -97,6 +98,7 @@ export function Memory({ ctx }: { ctx: GameContext }) {
           return (
             <button
               key={card.id}
+              className={faceUp ? "ellaz-flip" : undefined}
               aria-label={faceUp ? card.face : "card"}
               onClick={() => onCard(i)}
               style={{

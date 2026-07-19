@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button } from "@ui/components";
-import { burst, haptic } from "@juice/index";
+import { burst, haptic, celebrate } from "@juice/index";
 import { generate, setCell, conflicts, isSolved, type SudokuState, type Level } from "./logic";
 
 export function Sudoku({ ctx }: { ctx: GameContext }) {
@@ -46,6 +46,7 @@ export function Sudoku({ ctx }: { ctx: GameContext }) {
         setWon(true);
         ctx.audio.play("win");
         haptic.win();
+        celebrate();
         if (boardRef.current) {
           const rect = boardRef.current.getBoundingClientRect();
           burst(rect.left + rect.width / 2, rect.top + rect.height / 2, { count: 16 });

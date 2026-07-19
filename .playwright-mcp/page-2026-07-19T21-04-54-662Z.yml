@@ -1,0 +1,44 @@
+- generic [ref=f19e4]:
+  - banner [ref=f19e5]:
+    - generic [ref=f19e6]: 🎮
+    - generic [ref=f19e7]:
+      - heading "אלז" [level=1] [ref=f19e8]
+      - generic [ref=f19e9]: משחקים לכל המשפחה
+    - button "שפה" [ref=f19e10] [cursor=pointer]: EN
+  - generic [ref=f19e11]:
+    - heading "לילדים" [level=2] [ref=f19e12]
+    - generic [ref=f19e13]:
+      - button "🧠 זיכרון" [ref=f19e14] [cursor=pointer]:
+        - generic [ref=f19e15]: 🧠
+        - generic [ref=f19e16]: זיכרון
+      - button "🎨 צביעה" [ref=f19e17] [cursor=pointer]:
+        - generic [ref=f19e18]: 🎨
+        - generic [ref=f19e19]: צביעה
+      - button "🔍 מצא הבדלים" [ref=f19e20] [cursor=pointer]:
+        - generic [ref=f19e21]: 🔍
+        - generic [ref=f19e22]: מצא הבדלים
+      - button "👀 מצא אותי" [ref=f19e23] [cursor=pointer]:
+        - generic [ref=f19e24]: 👀
+        - generic [ref=f19e25]: מצא אותי
+      - button "➕ חשבון" [ref=f19e26] [cursor=pointer]:
+        - generic [ref=f19e27]: ➕
+        - generic [ref=f19e28]: חשבון
+  - generic [ref=f19e29]:
+    - heading "קלאסי" [level=2] [ref=f19e30]
+    - generic [ref=f19e31]:
+      - button "🔢 2048" [ref=f19e32] [cursor=pointer]:
+        - generic [ref=f19e33]: 🔢
+        - generic [ref=f19e34]: "2048"
+      - button "⭕ איקס עיגול" [ref=f19e35] [cursor=pointer]:
+        - generic [ref=f19e36]: ⭕
+        - generic [ref=f19e37]: איקס עיגול
+      - button "💣 שולה מוקשים" [ref=f19e38] [cursor=pointer]:
+        - generic [ref=f19e39]: 💣
+        - generic [ref=f19e40]: שולה מוקשים
+      - button "🔡 סודוקו" [ref=f19e41] [cursor=pointer]:
+        - generic [ref=f19e42]: 🔡
+        - generic [ref=f19e43]: סודוקו
+      - button "🐍 נחש" [ref=f19e44] [cursor=pointer]:
+        - generic [ref=f19e45]: 🐍
+        - generic [ref=f19e46]: נחש
+  - paragraph [ref=f19e47]: 📲 הוסיפו למסך הבית למשחק גם בלי אינטרנט

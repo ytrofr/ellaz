@@ -1,0 +1,20 @@
+- generic [ref=f18e3]:
+  - generic [ref=f18e4]:
+    - button "back" [ref=f18e5] [cursor=pointer]: →
+    - button "mute" [pressed] [ref=f18e6] [cursor=pointer]: 🔊
+  - generic [ref=f18e28]:
+    - generic [ref=f18e29]:
+      - generic [ref=f18e30]:
+        - generic [ref=f18e31]: מצב
+        - generic [ref=f18e32]: התור שלך
+      - button "מהתחלה" [ref=f18e33] [cursor=pointer]
+    - generic [ref=f18e34]:
+      - button "O" [ref=f18e44] [cursor=pointer]
+      - button "X" [active] [ref=f18e45] [cursor=pointer]
+      - button "cell 3" [ref=f18e37] [cursor=pointer]
+      - button "cell 4" [ref=f18e38] [cursor=pointer]
+      - button "cell 5" [ref=f18e39] [cursor=pointer]
+      - button "cell 6" [ref=f18e40] [cursor=pointer]
+      - button "cell 7" [ref=f18e41] [cursor=pointer]
+      - button "cell 8" [ref=f18e42] [cursor=pointer]
+      - button "cell 9" [ref=f18e43] [cursor=pointer]

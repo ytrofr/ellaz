@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button } from "@ui/components";
-import { haptic } from "@juice/index";
+import { haptic, celebrate } from "@juice/index";
 import { PICTURES, PALETTE } from "./pictures";
 
 // SVG region-fill coloring. Tap a color, tap a region — the region fills.
@@ -25,7 +25,19 @@ export function Coloring({ ctx }: { ctx: GameContext }) {
     ctx.audio.unlock();
     ctx.audio.play("pop");
     haptic.tap();
-    setFills((f) => ({ ...f, [regionId]: color }));
+    setFills((f) => {
+      const nf = { ...f, [regionId]: color };
+      // Celebrate once the whole picture is colored in.
+      const wasComplete = pic.regions.every((r) => f[r.id]);
+      const nowComplete = pic.regions.every((r) => nf[r.id]);
+      if (!wasComplete && nowComplete) {
+        ctx.audio.play("win");
+        haptic.win();
+        celebrate();
+        ctx.analytics.levelComplete(pic.id, 0);
+      }
+      return nf;
+    });
     ctx.analytics.track("region_filled", { picture: pic.id, region: regionId });
   };
 

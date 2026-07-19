@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import type { GameContext } from "@sdk/index";
 import { Stat } from "@ui/components";
-import { burst, shake, haptic } from "@juice/index";
+import { burst, shake, haptic, celebrate } from "@juice/index";
 import { generateProblem, isCorrect, type Problem } from "./logic";
 
 export function MathGame({ ctx }: { ctx: GameContext }) {
@@ -41,6 +41,7 @@ export function MathGame({ ctx }: { ctx: GameContext }) {
             ctx.storage.set("best", nb);
             return nb;
           });
+          if (ns > 0 && ns % 5 === 0) celebrate(); // reward every 5-in-a-row
           return ns;
         });
         ctx.analytics.levelComplete("addsub10", 0);

@@ -57,6 +57,79 @@ h3 {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Reusable game-feel animations (juice). Applied via classes so any game can use
+   them without per-game CSS. */
+@keyframes ellaz-pop {
+  0% {
+    transform: scale(0.2);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.ellaz-pop {
+  animation: ellaz-pop 0.28s var(--ease) both;
+}
+
+@keyframes ellaz-merge {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.ellaz-merge {
+  animation: ellaz-merge 0.24s var(--ease) both;
+}
+
+@keyframes ellaz-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(85, 239, 196, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(85, 239, 196, 0.5);
+  }
+}
+.ellaz-pulse {
+  animation: ellaz-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes ellaz-flip-in {
+  0% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+.ellaz-flip {
+  animation: ellaz-flip-in 0.22s ease-out both;
+}
+
+@keyframes ellaz-correct {
+  0% {
+    transform: scale(1);
+    background: var(--green) !important;
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.ellaz-correct {
+  animation: ellaz-correct 0.4s var(--ease);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

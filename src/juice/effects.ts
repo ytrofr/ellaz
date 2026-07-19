@@ -57,6 +57,53 @@ export function burst(x: number, y: number, opts: BurstOptions = {}): void {
   setTimeout(() => layer.remove(), 1100);
 }
 
+// A full-screen confetti celebration raining from the top — the big "you did it"
+// reward moment. Heavier than burst(); use it for wins and milestones.
+export function celebrate(opts: { count?: number; colors?: string[] } = {}): void {
+  const count = opts.count ?? 60;
+  const colors = opts.colors ?? [
+    "#6c5ce7", "#a29bfe", "#00cec9", "#fdcb6e", "#ff7675", "#55efc4", "#fd79a8", "#74b9ff",
+  ];
+  const layer = document.createElement("div");
+  layer.style.cssText =
+    "position:fixed;inset:0;pointer-events:none;z-index:10000;overflow:hidden";
+  document.body.appendChild(layer);
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    const size = 7 + Math.random() * 9;
+    const startX = Math.random() * W;
+    p.style.cssText =
+      `position:absolute;left:${startX}px;top:-20px;width:${size}px;height:${size * 0.6}px;` +
+      `background:${colors[i % colors.length]};border-radius:2px;`;
+    layer.appendChild(p);
+    const driftX = (Math.random() * 2 - 1) * 120;
+    const spins = 2 + Math.random() * 4;
+    p.animate(
+      [
+        { transform: "translate(0,0) rotate(0deg)", opacity: 1 },
+        { transform: `translate(${driftX}px, ${H + 60}px) rotate(${spins * 360}deg)`, opacity: 0.9 },
+      ],
+      { duration: 1600 + Math.random() * 1200, easing: "cubic-bezier(.25,.6,.4,1)", delay: Math.random() * 400 },
+    );
+  }
+  setTimeout(() => layer.remove(), 2600);
+}
+
+/** Add a one-shot CSS animation class to an element, auto-removed on finish. */
+export function popEl(el: HTMLElement, cls = "ellaz-pop"): void {
+  el.classList.remove(cls);
+  // reflow to restart the animation if the class was present
+  void el.offsetWidth;
+  el.classList.add(cls);
+  const done = () => {
+    el.classList.remove(cls);
+    el.removeEventListener("animationend", done);
+  };
+  el.addEventListener("animationend", done);
+}
+
 /** Minimal eased tween on a numeric value. Returns a cancel function. */
 export function tween(
   from: number,

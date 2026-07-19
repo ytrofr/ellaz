@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import type { GameContext } from "@sdk/index";
+import { celebrate } from "@juice/index";
 import { newGame, step, turn, type SnakeState, type Dir } from "./logic";
 
 const COLS = 17;
@@ -116,7 +117,10 @@ export class SnakeScene extends Phaser.Scene {
       this.acc -= STEP_MS;
       const prevScore = this.state.score;
       this.state = step(this.state);
-      if (this.state.score > prevScore) this.ctx.audio.play("success");
+      if (this.state.score > prevScore) {
+        this.ctx.audio.play("success");
+        if (this.state.score % 5 === 0) celebrate({ count: 40 }); // reward milestone
+      }
       if (!this.state.alive) {
         this.phase = "over";
         this.ctx.audio.play("fail");

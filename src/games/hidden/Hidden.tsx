@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState, useEffect, type PointerEvent as ReactPointerEvent } from "react";
 import type { GameContext } from "@sdk/index";
 import { Button } from "@ui/components";
-import { burst, shake, haptic } from "@juice/index";
+import { burst, shake, haptic, celebrate } from "@juice/index";
 import { newGame, tapObject, isWon, targetIcons, type HiddenState } from "./logic";
 
 // A big cast of original characters; find the ones on the target strip.
@@ -44,6 +44,7 @@ export function Hidden({ ctx }: { ctx: GameContext }) {
           setWon(true);
           ctx.audio.play("win");
           haptic.win();
+          celebrate();
           ctx.analytics.levelComplete("crowd", 0);
         }
       } else if (result.kind === "not-target") {

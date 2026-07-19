@@ -18,10 +18,10 @@ npm run build      # tsc --noEmit && vite build → dist/  (also the type-check 
 npm run preview    # serve the production build on :5180
 ```
 
-**QA gotcha:** the production build registers a service worker with a **`prompt`**
-update flow, so an active SW keeps serving the *previously cached* bundle until the
-user accepts an update. When eyeballing a fresh build, use `npm run dev` (no SW) or
-clear the SW/caches — otherwise you're testing stale code.
+**QA gotcha:** the production build registers a service worker (`autoUpdate`) — a new
+deploy activates on the user's next load and reloads the page. A tab already open on
+the old SW still serves the cached bundle until that reload, so when eyeballing a
+fresh build use `npm run dev` (no SW) or clear the SW/caches first.
 
 ## Architecture
 
